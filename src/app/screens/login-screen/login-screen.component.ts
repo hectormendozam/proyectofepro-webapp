@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FacadeService } from 'src/app/services/facade.service';
 declare var $:any;
-
 @Component({
   selector: 'app-login-screen',
   templateUrl: './login-screen.component.html',
@@ -16,12 +15,18 @@ export class LoginScreenComponent implements OnInit {
 
   public errors:any = {};
 
+  public users_registrados: any = [];
+  public logeo: boolean = false;
+  public flag_email: boolean = false;
+  public flag_pwd: boolean = false;
+
   constructor(
     private router: Router,
     public facadeService: FacadeService
   ) { }
 
   ngOnInit(): void {
+    
   }
 
   //Aquí van las funciones de validación
@@ -34,8 +39,19 @@ export class LoginScreenComponent implements OnInit {
     if(!$.isEmptyObject(this.errors)){
       return false;
     }
-    //Si pasa la validación
-    this.router.navigate(["home"]);
+    console.log("Pasó validación");
+    
+    this.facadeService.login(this.username, this.password).subscribe(
+      (response)=>{
+        console.log(response);
+        this.facadeService.saveUserData(response);
+        this.router.navigate(["home"]);
+      }, (error)=>{
+        alert("No se pudo iniciar sesión");
+      }
+    );
+    
+    
   }
 
   public showPassword(){

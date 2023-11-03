@@ -9,7 +9,7 @@
     background-color: #FFFFFF;
 }
 
-.section-registro{
+.section-producto{
     width: 100%;
     height: 100%;
     display: flex;
@@ -18,7 +18,7 @@
     align-items: center;
 }
 
-.header-registro{
+.header-producto{
     width: 100%;
     height: 10vh;
     display: flex;
@@ -46,15 +46,75 @@
     cursor: pointer;
 }
 
-.icon-forward{
-    padding-right: 1.5rem;
-    color: #0092B8;
+.icon-home{
+    padding-right: 3.5rem;
+    color: #ffffff;
     font-size: 28pt;
     width: 40px;
     height: 40px;
+    cursor: pointer;
 }
 
-.body-registro{
+.botones{
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-primary1{
+    width: 208px;
+    height: 48px;
+    background-color: #b80000!important;
+    border-color: #b80000!important;
+    border-radius: 8px!important;
+    opacity: 1;
+    //Fuente
+    text-align: center;
+    font-family: Nexa-Bold;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+  }
+
+  .btn-primary2{
+    width: 208px;
+    height: 48px;
+    background-color: #0090b8!important;
+    border-color: #0090b8!important;
+    border-radius: 8px!important;
+    opacity: 1;
+    //Fuente
+    text-align: center;
+    font-family: Nexa-Bold;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+  }
+
+.section-up{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .abarrotes{
+    width: 700px;
+    height: 464px;
+  }
+  
+
+  .body-productos{
     width: 60%;
     height: 90vh;
     display: flex;
@@ -65,59 +125,12 @@
     gap: 1.5rem;
 }
 
-.section-buttons{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 3rem;
-}
-
-.btn-primary {
-    width: 208px;
-    height: 48px;
-    background-color: #0092B8!important;
-    border-color: #0092B8!important;
-    border-radius: 8px!important;
-    opacity: 1;
-    //Fuente
-    text-align: center;
-    font-family: Nexa-Bold;
-    font-size: 16px;
-    font-weight: bold;
-    letter-spacing: 0px;
-    color: #FFFFFF;
-    opacity: 1;
-}
-
-.btn-primary:hover {
-    background-color: #017895!important;
-    border-color: #017895!important;
-    
-}
-
-.btn-danger{
-    width: 208px;
-    height: 48px;
-    border-radius: 8px!important;
-    opacity: 1;
-    //Fuente
-    text-align: center;
-    font-family: Nexa-Bold;
-    font-size: 16px;
-    font-weight: bold;
-    letter-spacing: 0px;
-    color: #FFFFFF;
-    opacity: 1;
-}
-
-
 mat-form-field{
     width: 100%!important;
     height: 48px!important;
     text-align: left!important;
 }
+
 
 //Estilos mat-input
 ::ng-deep .mat-focused .mat-form-field-label {

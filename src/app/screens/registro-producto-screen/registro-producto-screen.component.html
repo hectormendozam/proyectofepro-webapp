@@ -1,0 +1,52 @@
+<section class="registro-user">
+    <div class="wrapper">
+        <!-- Va a englobar todo el formulario con la cabecera -->
+        <div class="section-producto">
+            <div class="header-producto">
+                <mat-icon class="icon-back" (click)="regresar()">arrow_back</mat-icon>
+                <span *ngIf="!editar" class="title">Productos</span>
+                <span *ngIf="editar" class="title">Actualizar usuario</span>
+                <mat-icon class="icon-home" (click)="regresar()">home</mat-icon>
+            </div>
+            <div class="section-up">
+                <img src="/assets/images/abarrotes.jpg" class="abarrotes">
+            </div>
+
+            <div class="body-productos">
+
+                <mat-form-field class="mat-input" appearance="outline">
+                    <mat-label>ID</mat-label>
+                    <input matInput [(ngModel)]="user.id" mask='0000000000' placeholder="Escribe ID del producto">
+                </mat-form-field>
+                <div *ngIf="errors.id" class="invalid-feedback">{{ errors.id }}</div>
+
+                <mat-form-field class="mat-input" appearance="outline">
+                    <mat-label>Nombre producto</mat-label>
+                    <input matInput [(ngModel)]="user.nombre_producto" placeholder="Escribe nombre producto">
+                </mat-form-field>
+                <div *ngIf="errors.nombre_producto" class="invalid-feedback">{{ errors.nombre_producto }}</div>
+
+                <mat-form-field class="mat-input" appearance="outline">
+                    <mat-label>Departamento del producto</mat-label>
+                    <input matInput [(ngModel)]="user.departamento" placeholder="Escribe departamento del producto">
+                </mat-form-field>
+                <div *ngIf="errors.departamento" class="invalid-feedback">{{ errors.departamento }}</div>
+    
+                <mat-form-field class="mat-input" appearance="outline">
+                    <mat-label>Precio</mat-label>
+                    <input matInput [(ngModel)]="user.precio" span = "$" mask='000.00' placeholder="Escribe precio del producto">
+                </mat-form-field>
+                <div *ngIf="errors.precio" class="invalid-feedback">{{ errors.precio }}</div>
+    
+                <div class="botones">
+                    <button class="btn btn-danger" (click)="regresar()">Cancelar</button>
+                    <button *ngIf="!editar" class="btn btn-primary" type="submit" (click)="registrar()">Registrar</button>
+                    <!-- <button *ngIf="editar" class="btn btn-primary" type="submit" (click)="actualizar()">Actualizar</button> -->
+                </div>
+            </div>
+
+        </div>
+
+       
+    </div>
+</section>

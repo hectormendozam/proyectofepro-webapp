@@ -1,9 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "eebd1c06-95ab-4404-b2ae-356c1741b10b"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "herramientas-website": {
+    "herramientas-webapp": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/herramientas-website",
+            "outputPath": "dist/herramientas-webapp",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -79,10 +82,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "herramientas-website:build:production"
+              "browserTarget": "herramientas-webapp:build:production"
             },
             "development": {
-              "browserTarget": "herramientas-website:build:development"
+              "browserTarget": "herramientas-webapp:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -90,7 +93,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "herramientas-website:build"
+            "browserTarget": "herramientas-webapp:build"
           }
         },
         "test": {
@@ -121,5 +124,5 @@
       }
     }
   },
-  "defaultProject": "herramientas-website"
+  "defaultProject": "herramientas-webapp"
 }
