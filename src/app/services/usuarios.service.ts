@@ -4,6 +4,7 @@ import { ErrorsService } from './tools/errors.service';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { FacadeService } from './facade.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -18,6 +19,7 @@ export class UsuariosService {
     private validatorService: ValidatorService,
     private errorService: ErrorsService,
     private http: HttpClient,
+    private facadeService: FacadeService
   ) { }
 
   public esquemaUser(){
