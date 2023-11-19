@@ -41,7 +41,7 @@ export class RegistroProductoScreenComponent implements OnInit{
       //Validar
       this.errors = [];
   
-      this.errors = this.usuariosService.validarUsuario(this.user);
+      this.errors = this.usuariosService.validarUsuario(this.user, this.editar);
       if(!$.isEmptyObject(this.errors)){
         //Pasa la validación y sale de la función
         return false;

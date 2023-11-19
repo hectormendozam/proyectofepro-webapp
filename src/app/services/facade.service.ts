@@ -1,8 +1,8 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { ValidatorService } from './tools/validator.service';
 import { ErrorsService } from './tools/errors.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -21,6 +21,8 @@ const codigo_cookie_name = 'systemp-web-codigo';
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class FacadeService {
 
   constructor(
@@ -44,7 +46,8 @@ export class FacadeService {
       error["username"] = this.errorService.required;
     }else if(!this.validatorService.max(data["username"], 40)){
       error["username"] = this.errorService.max(40);
-    }else if (!this.validatorService.email(data['username'])) {
+    }
+    else if (!this.validatorService.email(data['username'])) {
       error['username'] = this.errorService.email;
     }
 
@@ -73,7 +76,6 @@ export class FacadeService {
     return this.http.get<any>(`${environment.url_api}/logout/`, {headers: headers});
   }
 
-  
   //Funciones para utilizar las cookies en web
   retrieveSignedUser(){
     var headers: any;
@@ -125,6 +127,4 @@ export class FacadeService {
   getUserGroup(){
     return this.cookieService.get(group_name_cookie_name);
   }
-
-
 }

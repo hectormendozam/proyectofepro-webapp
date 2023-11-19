@@ -2,6 +2,7 @@
     <div class="wrapper">
         <!-- Va a englobar todo el formulario con la cabecera -->
         <div class="section-registro">
+            <!-- Va a mostrar el título en la cabecera del componente -->
             <div class="header-registro">
                 <mat-icon class="icon-back" (click)="regresar()">arrow_back</mat-icon>
                 <span *ngIf="!editar" class="title">Registrarse</span>
@@ -89,7 +90,7 @@
                 <div class="section-buttons">
                     <button class="btn btn-danger" (click)="regresar()">Cancelar</button>
                     <button *ngIf="!editar" class="btn btn-primary" type="submit" (click)="registrar()">Registrar</button>
-                    <!-- <button *ngIf="editar" class="btn btn-primary" type="submit" (click)="actualizar()">Actualizar</button> -->
+                    <button *ngIf="editar" class="btn btn-primary" type="submit" (click)="actualizar()">Actualizar</button>
                 </div>
             </div>
         </div>

@@ -16,9 +16,9 @@ const httpOptions = {
 export class UsuariosService {
 
   constructor(
+    private http: HttpClient,
     private validatorService: ValidatorService,
     private errorService: ErrorsService,
-    private http: HttpClient,
     private facadeService: FacadeService
   ) { }
 
@@ -39,8 +39,8 @@ export class UsuariosService {
     }
   }
 
-  //Función para validar datos del usuario
-  public validarUsuario(data: any){
+  //Validación para el formulario
+  public validarUsuario(data: any, editar: boolean){
     console.log("Validando user... ", data);
     let error: any = [];
 
@@ -64,12 +64,14 @@ export class UsuariosService {
       error['email'] = this.errorService.email;
     }
 
-    if(!this.validatorService.required(data["password"])){
-      error["password"] = this.errorService.required;
-    }
-
-    if(!this.validatorService.required(data["confirmar_password"])){
-      error["confirmar_password"] = this.errorService.required;
+    if(!editar){
+      if(!this.validatorService.required(data["password"])){
+        error["password"] = this.errorService.required;
+      }
+  
+      if(!this.validatorService.required(data["confirmar_password"])){
+        error["confirmar_password"] = this.errorService.required;
+      }
     }
 
     if(!this.validatorService.required(data["fecha_nacimiento"])){
@@ -110,13 +112,39 @@ export class UsuariosService {
       error["ocupacion"] = this.errorService.required;
     }
 
+    //Return arreglo
     return error;
-    
   }
 
-  //Aquí agregamos servicios HTTP
+  //Aquí van los servicios HTTP
   //Servicio para registrar un nuevo usuario
   public registrarUsuario (data: any): Observable <any>{
     return this.http.post<any>(`${environment.url_api}/users/`,data, httpOptions);
+  }
+
+  //Registrar
+  public obtenerListaUsers (): Observable <any>{
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
+    return this.http.get<any>(`${environment.url_api}/lista-users/`, {headers:headers});
+  }
+
+  //Obtener un solo usuario dependiendo su ID
+  public getUserByID(idUser: Number){
+    return this.http.get<any>(`${environment.url_api}/users/?id=${idUser}`,httpOptions); 
+  }
+
+  //Servicio para actualizar un usuario
+  public editarUsuario (data: any): Observable <any>{
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
+    return this.http.put<any>(`${environment.url_api}/users-edit/`, data, {headers:headers});
+  }
+
+  //Eliminar usuario
+  public eliminarUsuario(idUser: number): Observable <any>{
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json' , 'Authorization': 'Bearer '+token});
+    return this.http.delete<any>(`${environment.url_api}/users-edit/?id=${idUser}`,{headers:headers});
   }
 }
