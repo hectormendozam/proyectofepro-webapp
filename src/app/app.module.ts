@@ -17,6 +17,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatSelectModule} from '@angular/material/select';
 //Pantallas
 import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
 import { RegistroScreenComponent } from './screens/registro-screen/registro-screen.component';
@@ -27,6 +28,9 @@ import { RegistroProductoScreenComponent } from './screens/registro-producto-scr
 //ngx mask
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { EliminarUserModalComponent } from './modals/eliminar-user-modal/eliminar-user-modal.component';
+import { RegistroMateriaScreenComponent } from './screens/registro-materia-screen/registro-materia-screen.component';
+import { HomeMateriasScreenComponent } from './screens/home-materias-screen/home-materias-screen.component';
+import { EliminarMateriaModalComponent } from './modals/eliminar-materia-modal/eliminar-materia-modal.component';
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 @NgModule
 ({
@@ -38,6 +42,9 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
     HomeScreenComponent,
     RegistroProductoScreenComponent,
     EliminarUserModalComponent,
+    RegistroMateriaScreenComponent,
+    HomeMateriasScreenComponent,
+    EliminarMateriaModalComponent,
   ],
   imports: 
   [
@@ -54,7 +61,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
     HttpClientModule,
     MatTableModule,
     MatPaginatorModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule,
   ],
   providers:
   [

@@ -3,22 +3,22 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { EliminarUserModalComponent } from 'src/app/modals/eliminar-user-modal/eliminar-user-modal.component';
+import { EliminarMateriaModalComponent } from 'src/app/modals/eliminar-materia-modal/eliminar-materia-modal.component';
 import { FacadeService } from 'src/app/services/facade.service';
-import { UsuariosService } from 'src/app/services/usuarios.service';
-
+import { MateriaService } from 'src/app/services/materia.service';
+import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-home-screen',
-  templateUrl: './home-screen.component.html',
-  styleUrls: ['./home-screen.component.scss']
+  selector: 'app-home-materias-screen',
+  templateUrl: './home-materias-screen.component.html',
+  styleUrls: ['./home-materias-screen.component.scss']
 })
-export class HomeScreenComponent implements OnInit {
+export class HomeMateriasScreenComponent implements OnInit {
   public token : string = "";
-  public lista_usuarios: any[] = [];
+  public lista_materias: any[] = [];
 
-  displayedColumns: string[] = ['matricula', 'nombre', 'email', 'fecha_nacimiento', 'edad', 'curp', 'rfc', 'telefono', 'ocupacion', 'editar', 'eliminar'];
-  dataSource = new MatTableDataSource<DatosUsuario>(this.lista_usuarios as DatosUsuario[]);
+  displayedColumns: string[] = ['nrc', 'materia', 'seccion', 'dias', 'hora_inicio', 'hora_final', 'salon', 'programa', 'editar', 'eliminar'];
+  dataSource = new MatTableDataSource<DatosMateria>(this.lista_materias as DatosMateria[]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -29,9 +29,10 @@ export class HomeScreenComponent implements OnInit {
 
   constructor(
     private facadeService: FacadeService,
-    private usuariosService: UsuariosService,
+    private materiaService: MateriaService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private location : Location
   ) { }
 
   ngOnInit(): void {
@@ -44,7 +45,7 @@ export class HomeScreenComponent implements OnInit {
       this.router.navigate([""]);
     }
     //Mandar a ejecutar la función
-    this.obtenerUsuarios();
+    this.obtenerMaterias();
 
     //Para paginador
     this.initPaginator();
@@ -76,73 +77,48 @@ export class HomeScreenComponent implements OnInit {
   }
 
   //Obtener lista de usuarios
-  public obtenerUsuarios(){
-    this.usuariosService.obtenerListaUsers().subscribe(
+  public obtenerMaterias(){
+    this.materiaService.obtenerListaMaterias().subscribe(
       (response)=>{
-        this.lista_usuarios = response;
-        console.log("Lista users: ", this.lista_usuarios);
-        if(this.lista_usuarios.length > 0){
-          //Agregar datos del nombre e email
-          this.lista_usuarios.forEach(usuario => {
-            usuario.first_name = usuario.user.first_name;
-            usuario.last_name = usuario.user.last_name;
-            usuario.email = usuario.user.email;
-          });
-          console.log("Otro user: ", this.lista_usuarios);
-          
-          this.dataSource = new MatTableDataSource<DatosUsuario>(this.lista_usuarios as DatosUsuario[]);
+        this.lista_materias = response;
+        console.log("Lista materias: ", this.lista_materias);
+        if(this.lista_materias.length > 0){
+          this.dataSource = new MatTableDataSource<DatosMateria>(this.lista_materias as DatosMateria[]);
         }
       }, (error)=>{
-        alert("No se pudo obtener la lista de usuarios");
+        alert("No se pudo obtener la lista de materias");
       }
     );
   }
 
-  //Cerrar sesión
-  public logout(){
-    this.facadeService.logout().subscribe(
-      (response)=>{
-        console.log("Entró");
-        
-        this.facadeService.destroyUser();
-        //Navega al login
-        this.router.navigate(["/"]);
-      }, (error)=>{
-        console.error(error);
-      }
-    );
-  }
 
   //Funcion para editar
-  public goEditar(idUser: number){
-    this.router.navigate(["registro/"+idUser]);
+  public goEditar(nrcMateria: number){
+    this.router.navigate(["registro-materias/"+nrcMateria]);
   }
 
-  public goRegistroMaterias(){
-    this.router.navigate(["registro-materias"]);
-  }
 
-  public goHomeMaterias(){
-    this.router.navigate(["home-materias"]);
+  public regresar(){
+    this.location.back();
   }
 
   //Función para eliminar
-  public delete(idUser: number){
-    console.log("User:", idUser);
-    const dialogRef = this.dialog.open(EliminarUserModalComponent,{
-      data: {id: idUser}, //Se pasan valores a través del componente
+  public delete(nrcNumber: number){
+    console.log("Materia:", nrcNumber);
+    const dialogRef = this.dialog.open(EliminarMateriaModalComponent,{
+      data: {nrc: nrcNumber}, //Se pasan valores a través del componente
       height: '268px',
       width: '328px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if(result.isDelete){
-        console.log("Usuario eliminado");
+        console.log("Materia eliminada");
         //Recargar página
         window.location.reload();
       }else{
-        alert("Usuario no eliminado ");
-        console.log("No se eliminó el usuario");
+        alert("Materia no eliminada ");
+        console.log("No se eliminó la materia");
         //alert("No se eliminó el usuario");
       }
     });
@@ -151,17 +127,13 @@ export class HomeScreenComponent implements OnInit {
 }//Aquí cierra la clase principal
 
 //Esto va fuera de la llave que cierra la clase
-export interface DatosUsuario {
-  id: number,
-  matricula: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-  fecha_nacimiento: string,
-  curp: string,
-  rfc: string,
-  edad: number,
-  telefono: string,
-  ocupacion: string
-
+export interface DatosMateria {
+  nrc: number,
+  materia: string;
+  seccion: number;
+  dias: string;
+  hora_inicio: string,
+  hora_final: string,
+  salon: number,
+  programa: string
 }
